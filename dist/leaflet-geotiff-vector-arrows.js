@@ -37,6 +37,7 @@
             var xProjected = projected.x;
             var yProjected = projected.y; //draw an arrow
 
+            console.log(raster)
             ctx.save();
             ctx.translate(xProjected, yProjected);
             ctx.rotate((90 + raster.data[0][rasterIndex]) * Math.PI / 180);
@@ -47,7 +48,6 @@
             ctx.lineTo(+arrowSize / 2, 0);
             ctx.lineTo(arrowSize * 0.25, arrowSize * 0.25);
             ctx.strokeStyle = 'white';
-            ctx.fillStyle = 'white';
 
             ctx.stroke();
             ctx.restore();
