@@ -47,6 +47,8 @@
             ctx.lineTo(+arrowSize / 2, 0);
             ctx.lineTo(arrowSize * 0.25, arrowSize * 0.25);
             ctx.strokeStyle = 'pink';
+            ctx.fillStyle = 'pink';
+
             ctx.stroke();
             ctx.restore();
           }
