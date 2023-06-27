@@ -25,7 +25,7 @@
         for (var x = 0; x < raster.width; x = x + stride) {
           var rasterIndex = y * raster.width + x;
 
-          if (raster.data[0][rasterIndex] >= 0) {
+          if (raster.data[1][rasterIndex] >= 0) {
             //Ignore missing values
             //calculate lat-lon of of this point
             var currentLng = this.parent._rasterBounds._southWest.lng + (x + 0.5) * args.lngSpan;
