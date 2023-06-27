@@ -37,7 +37,6 @@
             var xProjected = projected.x;
             var yProjected = projected.y; //draw an arrow
 
-            console.log(raster)
             ctx.save();
             ctx.translate(xProjected, yProjected);
             ctx.rotate((90 + raster.data[1][rasterIndex]) * Math.PI / 180);
