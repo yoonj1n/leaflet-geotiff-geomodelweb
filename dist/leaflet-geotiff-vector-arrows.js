@@ -59,6 +59,7 @@
                 if (value >= gradientColors[i].value && value <= gradientColors[i + 1].value) {
                   var t = (value - gradientColors[i].value) / (gradientColors[i + 1].value - gradientColors[i].value);
                   color = interpolateColor(gradientColors[i].color, gradientColors[i + 1].color, t);
+                  console.log(color);
                   break;
                 }
               }
