@@ -23,9 +23,9 @@
 
       // Define the gradient colors and corresponding values
       var gradientColors = [
-        { value: 0.00, color: '#0000ff' },
-        { value: 1.00, color: '#00ff00' },
-        { value: 2.00, color: '#ff0000' },
+        { value: 0.00, color: '#ffffff' },
+        { value: 0.50, color: '#00ff00' },
+        { value: 1.00, color: '#ff0000' },
       ];
       for (var y = 0; y < raster.height; y = y + stride) {
         for (var x = 0; x < raster.width; x = x + stride) {
@@ -59,7 +59,6 @@
                 if (value >= gradientColors[i].value && value <= gradientColors[i + 1].value) {
                   var t = (value - gradientColors[i].value) / (gradientColors[i + 1].value - gradientColors[i].value);
                   color = interpolateColor(gradientColors[i].color, gradientColors[i + 1].color, t);
-                  console.log(color);
                   break;
                 }
               }
