@@ -23,9 +23,9 @@
 
       // Define the gradient colors and corresponding values
       var gradientColors = [
-        { value: 0.00, color: 'blue' },
-        { value: 1.00, color: 'green' },
-        { value: 2.00, color: 'red' },
+        { value: 0.00, color: '#0000ff' },
+        { value: 1.00, color: '#00ff00' },
+        { value: 2.00, color: '#ff0000' },
       ];
       for (var y = 0; y < raster.height; y = y + stride) {
         for (var x = 0; x < raster.width; x = x + stride) {
