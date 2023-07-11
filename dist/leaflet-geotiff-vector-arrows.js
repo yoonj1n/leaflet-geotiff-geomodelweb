@@ -23,12 +23,12 @@
 
       // Define the gradient colors and corresponding values
       var gradientColors = [
-        { value: 0.00, color: '#ff0000' },
-        { value: 0.25, color: '#ff8000' },
-        { value: 0.50, color: '#ffff00' },
-        { value: 0.75, color: '#80ff00' },
-        { value: 1.00, color: '#00ff00' },
-        { value: 1.25, color: '#00ffff' },
+        { value: 0.00, color: '#ff1200' },
+        { value: 0.25, color: '#ff8800' },
+        { value: 0.50, color: '#ffff10' },
+        { value: 0.75, color: '#80ff10' },
+        { value: 1.00, color: '#00ff10' },
+        { value: 1.25, color: '#00f1ff' },
         { value: 1.50, color: '#0080ff' },
         { value: 1.75, color: '#8000ff' },
         { value: 2.00, color: '#ff00ff' },
