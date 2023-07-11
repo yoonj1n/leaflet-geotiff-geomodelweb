@@ -125,7 +125,11 @@
       }
       
       function rgbToHex(r, g, b) {
-        return '#' + r.toString(16) + g.toString(16) + b.toString(16);
+        var rHex = r.toString(16).padStart(2, '0');
+        var gHex = g.toString(16).padStart(2, '0');
+        var bHex = b.toString(16).padStart(2, '0');
+
+        return '#' + rHex + gHex + bHex;
       }
     }
   });
