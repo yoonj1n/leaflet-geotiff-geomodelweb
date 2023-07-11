@@ -98,6 +98,10 @@
         var r = Math.round(rgb1.r + (rgb2.r - rgb1.r) * t);
         var g = Math.round(rgb1.g + (rgb2.g - rgb1.g) * t);
         var b = Math.round(rgb1.b + (rgb2.b - rgb1.b) * t);
+
+        if (isNaN(r) || isNaN(g) || isNaN(b)) {
+          return '#ffffff';
+        }
       
         return rgbToHex(r, g, b);
       }
