@@ -23,15 +23,26 @@
 
       // Define the gradient colors and corresponding values
       var gradientColors = [
-        { value: 0.00, color: '#ff1c00' },
-        { value: 0.25, color: '#f17c00' },
-        { value: 0.50, color: '#f1cd10' },
-        { value: 0.75, color: '#80e010' },
-        { value: 1.00, color: '#00de10' },
-        { value: 1.25, color: '#00ddf3' },
-        { value: 1.50, color: '#00adf5' },
-        { value: 1.75, color: '#8000f1' },
-        { value: 2.00, color: '#ff00f1' },
+        { value: 0.00, color: '#ff0000' },
+        { value: 0.20, color: '#ff8800' },
+        { value: 0.40, color: '#ffff00' },
+        { value: 0.60, color: '#80ff10' },
+        { value: 0.80, color: '#00ff10' },
+        { value: 1.00, color: '#00ddf3' },
+        { value: 1.20, color: '#00adf5' },
+        { value: 1.40, color: '#ff00f1' },
+        { value: 1.60, color: '#c71585' },
+        { value: 1.80, color: '#800080' },
+        { value: 2.00, color: '#8000f1' },
+        // { value: 0.00, color: '#ff0000' },
+        // { value: 0.25, color: '#ff8800' },
+        // { value: 0.50, color: '#ffff00' },
+        // { value: 0.75, color: '#80ff10' },
+        // { value: 1.00, color: '#00ff10' },
+        // { value: 1.25, color: '#00ddf3' },
+        // { value: 1.50, color: '#00adf5' },
+        // { value: 1.75, color: '#8000f1' },
+        // { value: 2.00, color: '#ff00f1' },
       ];
       for (var y = 0; y < raster.height; y = y + stride) {
         for (var x = 0; x < raster.width; x = x + stride) {
@@ -80,7 +91,6 @@
             ctx.lineTo(+arrowSize / 2, 0);
             ctx.lineTo(arrowSize * 0.25, arrowSize * 0.25);
             ctx.strokeStyle = color;
-            console.log(color);
 
             ctx.stroke();
             ctx.restore();
