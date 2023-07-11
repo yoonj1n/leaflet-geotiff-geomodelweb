@@ -88,17 +88,38 @@
       }
       // Function to interpolate color between two colors
       function interpolateColor(color1, color2, t) {
-        var hex1 = color1.substring(1);
-        var hex2 = color2.substring(1);
-        var r1 = parseInt(hex1.substring(0, 2), 16);
-        var g1 = parseInt(hex1.substring(2, 4), 16);
-        var b1 = parseInt(hex1.substring(4, 6), 16);
-        var r2 = parseInt(hex2.substring(0, 2), 16);
-        var g2 = parseInt(hex2.substring(2, 4), 16);
-        var b2 = parseInt(hex2.substring(4, 6), 16);
-        var r = Math.round(r1 + (r2 - r1) * t);
-        var g = Math.round(g1 + (g2 - g1) * t);
-        var b = Math.round(b1 + (b2 - b1) * t);
+        var rgb1 = parseColor(color1);
+        var rgb2 = parseColor(color2);
+      
+        if (!rgb1 || !rgb2) {
+          return '#ffffff'; // 적절한 기본값으로 변경 가능
+        }
+      
+        var r = Math.round(rgb1.r + (rgb2.r - rgb1.r) * t);
+        var g = Math.round(rgb1.g + (rgb2.g - rgb1.g) * t);
+        var b = Math.round(rgb1.b + (rgb2.b - rgb1.b) * t);
+      
+        return rgbToHex(r, g, b);
+      }
+      
+      function parseColor(color) {
+        var hex = color.replace('#', '');
+        if (hex.length !== 6) {
+          return null;
+        }
+      
+        var r = parseInt(hex.substring(0, 2), 16);
+        var g = parseInt(hex.substring(2, 4), 16);
+        var b = parseInt(hex.substring(4, 6), 16);
+      
+        if (isNaN(r) || isNaN(g) || isNaN(b)) {
+          return null;
+        }
+      
+        return { r: r, g: g, b: b };
+      }
+      
+      function rgbToHex(r, g, b) {
         return '#' + r.toString(16) + g.toString(16) + b.toString(16);
       }
     }
