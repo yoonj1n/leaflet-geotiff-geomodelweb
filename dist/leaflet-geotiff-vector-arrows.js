@@ -24,14 +24,14 @@
       // Define the gradient colors and corresponding values
       var gradientColors = [
         { value: 0.00, color: '#ff1200' },
-        { value: 0.25, color: '#ff8800' },
-        { value: 0.50, color: '#ffff10' },
-        { value: 0.75, color: '#80ff10' },
-        { value: 1.00, color: '#00ff10' },
-        { value: 1.25, color: '#00f1ff' },
-        { value: 1.50, color: '#0080ff' },
-        { value: 1.75, color: '#8000ff' },
-        { value: 2.00, color: '#ff00ff' },
+        { value: 0.25, color: '#f17200' },
+        { value: 0.50, color: '#f1f110' },
+        { value: 0.75, color: '#80f010' },
+        { value: 1.00, color: '#00f010' },
+        { value: 1.25, color: '#00f1f3' },
+        { value: 1.50, color: '#0080f5' },
+        { value: 1.75, color: '#8000f1' },
+        { value: 2.00, color: '#ff00f1' },
       ];
       for (var y = 0; y < raster.height; y = y + stride) {
         for (var x = 0; x < raster.width; x = x + stride) {
