@@ -62,6 +62,8 @@
 
             // get speed value
             var value = raster.data[0][rasterIndex];
+            console.log("raster", raster);
+            console.log("value: ", value);
 
             // determine color
             var color;
