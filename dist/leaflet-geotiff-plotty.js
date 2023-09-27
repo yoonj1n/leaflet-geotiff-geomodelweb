@@ -48,7 +48,7 @@
     getColorbarOptions: function getColorbarOptions() {
       return Object.keys(plotty.colorscales);
     },
-    getColourbarDataUrl: function getColourbarDataUrl(paletteName) {
+    getColorbarDataUrl: function getColorbarDataUrl(paletteName) {
       var canvas = document.createElement("canvas");
       var plot = new plotty.plot({
         canvas: canvas,
@@ -61,7 +61,7 @@
         clampHigh: true,
         useWebGL: this.options.useWebGL
       });
-      dataUrl = plot.colorScaleCanvas.toDataURL();
+      var dataUrl = plot.colorScaleCanvas.toDataURL();
       canvas.remove();
       return dataUrl;
     },
