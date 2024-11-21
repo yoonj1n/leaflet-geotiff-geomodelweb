@@ -122,8 +122,16 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       let gl = plottyCanvas.getContext("webgl");
       gl.readPixels(0, 0, raster.width, raster.height, gl.RGBA, gl.UNSIGNED_BYTE, imageDataArray);
 
-      rasterImageData = new ImageData(imageDataArray, raster.width, raster.height);
-      // rasterImageData = new ImageData(new Uint8ClampedArray(imageDataArray), raster.width, raster.height);
+      for (let i = 0; i < imageDataArray.length; i += 4) {
+        // NoDataValue를 투명하게 설정
+        const value = raster.data[0][i / 4];
+        if (value === this.options.noDataValue) {
+          imageDataArray[i + 3] = 0; // 알파 채널 0
+        }
+      }
+
+      // rasterImageData = new ImageData(imageDataArray, raster.width, raster.height);
+      rasterImageData = new ImageData(new Uint8ClampedArray(imageDataArray), raster.width, raster.height);
     } else {
       rasterImageData = plottyCanvas.getContext("2d").getImageData(0, 0, plottyCanvas.width, plottyCanvas.height);
     } 
