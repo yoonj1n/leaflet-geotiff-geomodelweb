@@ -122,12 +122,11 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       let gl = plottyCanvas.getContext("webgl");
       gl.readPixels(0, 0, raster.width, raster.height, gl.RGBA, gl.UNSIGNED_BYTE, imageDataArray);
 
-      for (let i = 0; i < imageDataArray.length; i += 4) {
+      for (let i = 0; i < imageDataArray.length; i += 1) {
         if(Number.isNaN(imageDataArray[i])) imageDataArray[i] = this.options.noDataValue;
       }
 
       rasterImageData = new ImageData(imageDataArray, raster.width, raster.height);
-      // rasterImageData = new ImageData(new Uint8ClampedArray(imageDataArray), raster.width, raster.height);
     } else {
       rasterImageData = plottyCanvas.getContext("2d").getImageData(0, 0, plottyCanvas.width, plottyCanvas.height);
     } 
