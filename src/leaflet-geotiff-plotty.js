@@ -125,7 +125,7 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       for (let i = 0; i < imageDataArray.length; i += 4) {
         // NoDataValue를 투명하게 설정
         const value = raster.data[0][i / 4];
-        if (value === this.options.noDataValue) {
+        if (value === this.options.noDataValue || Number.isNaN(value)) {
           imageDataArray[i + 3] = 0; // 알파 채널 0
         }
       }
