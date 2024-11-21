@@ -123,11 +123,7 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       gl.readPixels(0, 0, raster.width, raster.height, gl.RGBA, gl.UNSIGNED_BYTE, imageDataArray);
 
       for (let i = 0; i < imageDataArray.length; i += 4) {
-        // NoDataValue를 투명하게 설정
-        const value = raster.data[0][i / 4];
-        if (value === this.options.noDataValue || Number.isNaN(value)) {
-          imageDataArray[i + 3] = 0;
-        }
+        if(Number.isNaN(imageDataArray[i])) imageDataArray[i] = this.options.noDataValue;
       }
 
       rasterImageData = new ImageData(imageDataArray, raster.width, raster.height);
