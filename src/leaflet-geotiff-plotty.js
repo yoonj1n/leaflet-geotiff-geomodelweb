@@ -122,6 +122,9 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       let gl = plottyCanvas.getContext("webgl");
       gl.readPixels(0, 0, raster.width, raster.height, gl.RGBA, gl.UNSIGNED_BYTE, imageDataArray);
 
+      console.log('imageDataArray : ',imageDataArray);
+      console.log('noDataValue : ' ,this.options.noDataValue);
+      
       for (let i = 0; i < imageDataArray.length; i += 4) {
         // NoDataValue를 투명하게 설정
         const value = raster.data[0][i / 4];
