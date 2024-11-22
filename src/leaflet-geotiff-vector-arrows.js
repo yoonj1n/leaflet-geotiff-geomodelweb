@@ -1,6 +1,10 @@
 L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
   options: {
-    arrowSize: 20
+    arrowSize: 20,
+    displayMin: 0,
+    displayMax: 2,
+    colorScale: ['#f00', '#0f0', '#00f'],
+    colorStep: 12
   },
 
   initialize: function(options) {
