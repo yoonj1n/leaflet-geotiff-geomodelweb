@@ -307,7 +307,8 @@ L.LeafletGeotiff = L.ImageOverlay.extend({
         return null;
 
       const i = y * this.raster.width + x;
-      const value = this.raster.data[0][i];
+      // const value = this.raster.data[0][i];
+      const value = this.raster.data[1][i];
 
       if (this.options.noDataValue === undefined) return value;
       const noData = parseInt(this.options.noDataValue);
