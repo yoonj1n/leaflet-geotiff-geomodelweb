@@ -59,8 +59,12 @@ export default [
       {
         dir: "dist",
         format: moduleFormat,
+        globals: {
+          'chroma-js': 'chroma',
+        }
       },
     ],
+    external: ["chroma-js"],
     plugins: [babel({ exclude: "node_modules/**" })],
   },
 ];
