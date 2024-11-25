@@ -1,6 +1,10 @@
+import chroma from "chroma-js";
+
 L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
   options: {
-    arrowSize: 20
+    arrowSize: 20,
+    colors: ['red', 'yellow', 'green', 'blue', 'purple'],
+    colorStep: 12,
   },
 
   initialize: function(options) {
@@ -14,6 +18,13 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
   },
 
   render: function(raster, canvas, ctx, args) {
+    var colors = this.options.colors;
+    var chromaScale = chroma.scale(colors).domain([this.options.min, this.options.max]).colors(this.options.colorStep);
+    var gradientColors = chromaScale.map((color, index)=>({
+      value : this.options.min + (this.options.max - this.options.min) / this.options.colorStep * index-1,
+      color: color
+    }))
+
     var arrowSize = this.options.arrowSize;
     var gridPxelSize =
       (args.rasterPixelBounds.max.x - args.rasterPixelBounds.min.x) /
@@ -23,7 +34,7 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     for (var y = 0; y < raster.height; y = y + stride) {
       for (var x = 0; x < raster.width; x = x + stride) {
         var rasterIndex = y * raster.width + x;
-        if (raster.data[0][rasterIndex] >= 0) {
+        if (raster.data[1][rasterIndex] >= 0) {
           //Ignore missing values
           //calculate lat-lon of of this point
           var currentLng =
@@ -38,6 +49,28 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
           var xProjected = projected.x;
           var yProjected = projected.y;
 
+          // get speed value
+          var value = raster.data[0][rasterIndex];
+
+          // determine color
+          var color;
+
+          // color set
+          if (value <= gradientColors[0].value) {
+            color = gradientColors[0].color;
+          } else if (value >= gradientColors[gradientColors.length - 1].value) {
+            color = gradientColors[gradientColors.length - 1].color;
+          } else {
+            for (var i = 0; i < gradientColors.length - 1; i++) {
+              if (value >= gradientColors[i].value && value <= gradientColors[i + 1].value) {
+                var t = (value - gradientColors[i].value) / (gradientColors[i + 1].value - gradientColors[i].value);
+                color = interpolateColor(gradientColors[i].color, gradientColors[i + 1].color, t);
+                break;
+              }
+            }
+          }
+
+
           //draw an arrow
           ctx.save();
           ctx.translate(xProjected, yProjected);
@@ -48,10 +81,55 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
           ctx.moveTo(arrowSize * 0.25, -arrowSize * 0.25);
           ctx.lineTo(+arrowSize / 2, 0);
           ctx.lineTo(arrowSize * 0.25, arrowSize * 0.25);
+          ctx.strokeStyle = color;
           ctx.stroke();
           ctx.restore();
         }
       }
+    }
+    // Function to interpolate color between two colors
+    function interpolateColor(color1, color2, t) {
+      var rgb1 = parseColor(color1);
+      var rgb2 = parseColor(color2);
+    
+      if (!rgb1 || !rgb2) {
+        return '#ffffff'; // 적절한 기본값으로 변경 가능
+      }
+    
+      var r = Math.round(rgb1.r + (rgb2.r - rgb1.r) * t);
+      var g = Math.round(rgb1.g + (rgb2.g - rgb1.g) * t);
+      var b = Math.round(rgb1.b + (rgb2.b - rgb1.b) * t);
+
+      if (isNaN(r) || isNaN(g) || isNaN(b)) {
+        return '#ffffff';
+      }
+    
+      return rgbToHex(r, g, b);
+    }
+    
+    function parseColor(color) {
+      var hex = color.replace('#', '');
+      if (hex.length !== 6) {
+        return null;
+      }
+    
+      var r = parseInt(hex.substring(0, 2), 16);
+      var g = parseInt(hex.substring(2, 4), 16);
+      var b = parseInt(hex.substring(4, 6), 16);
+    
+      if (isNaN(r) || isNaN(g) || isNaN(b)) {
+        return null;
+      }
+    
+      return { r: r, g: g, b: b };
+    }
+    
+    function rgbToHex(r, g, b) {
+      var rHex = r.toString(16).padStart(2, '0');
+      var gHex = g.toString(16).padStart(2, '0');
+      var bHex = b.toString(16).padStart(2, '0');
+
+      return '#' + rHex + gHex + bHex;
     }
   }
 });
