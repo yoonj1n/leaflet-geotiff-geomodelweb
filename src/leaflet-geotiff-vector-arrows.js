@@ -8,6 +8,8 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     displayMin: 0,
     displayMax: 2,
     colorStep: 20,
+    fixedZoomLevel: 8,
+    maxZoomArrowSize: 20,
   },
 
   initialize: function(options) {
@@ -28,7 +30,7 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
       color: color,
     }));
 
-    var arrowSize = currentZoom <= 8?this.options.arrowSize:15;
+    var arrowSize = currentZoom <= fixedZoomLevel?this.options.arrowSize:maxZoomArrowSize;
     var gridPxelSize =
       (args.rasterPixelBounds.max.x - args.rasterPixelBounds.min.x) /
       raster.width;
