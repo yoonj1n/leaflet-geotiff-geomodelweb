@@ -1,4 +1,4 @@
-import chroma from "chroma-js";
+import chroma from 'chroma-js';
 
 L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
   options: {
