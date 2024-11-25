@@ -1,8 +1,12 @@
 
+import chroma from 'chroma-js';
+
 L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
   options: {
     arrowSize: 20,
     colors: ['red', 'yellow', 'green', 'blue', 'purple'],
+    displayMin: 0,
+    displayMax: 2,
     colorStep: 12,
   },
 
@@ -17,6 +21,8 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
   },
 
   render: function(raster, canvas, ctx, args) {
+
+    var gradientScale = chroma.scale(this.options.colors).domain([this.options.displayMin, this.options.displayMax]).colors(this.options.colorStep);
 
     var gradientColors = [
       { value: 0.00, color: '#B2FCFF' },

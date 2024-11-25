@@ -1,12 +1,17 @@
-(function (factory) {
-  typeof define === 'function' && define.amd ? define(factory) :
-  factory();
-}((function () { 'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('chroma-js')) :
+  typeof define === 'function' && define.amd ? define(['chroma-js'], factory) :
+  (global = global || self, factory(global.chroma));
+}(this, (function (chroma) { 'use strict';
+
+  chroma = chroma && Object.prototype.hasOwnProperty.call(chroma, 'default') ? chroma['default'] : chroma;
 
   L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     options: {
       arrowSize: 20,
       colors: ['red', 'yellow', 'green', 'blue', 'purple'],
+      displayMin: 0,
+      displayMax: 2,
       colorStep: 12
     },
     initialize: function (options) {
@@ -19,6 +24,7 @@
       this.parent._reset();
     },
     render: function (raster, canvas, ctx, args) {
+      var gradientScale = chroma.scale(this.options.colors).domain([this.options.displayMin, this.options.displayMax]).colors(this.options.colorStep);
       var gradientColors = [{
         value: 0.00,
         color: '#B2FCFF'
