@@ -1,10 +1,10 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('chroma-js')) :
   typeof define === 'function' && define.amd ? define(['chroma-js'], factory) :
-  (global = global || self, factory(global.chroma));
-}(this, (function (chroma) { 'use strict';
+  (global = global || self, factory(global.chromaJs));
+}(this, (function (chromaJs) { 'use strict';
 
-  chroma = chroma && Object.prototype.hasOwnProperty.call(chroma, 'default') ? chroma['default'] : chroma;
+  chromaJs = chromaJs && Object.prototype.hasOwnProperty.call(chromaJs, 'default') ? chromaJs['default'] : chromaJs;
 
   L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     options: {
@@ -22,12 +22,60 @@
       this.parent._reset();
     },
     render: function (raster, canvas, ctx, args) {
-      var colors = this.options.colors;
-      var chromaScale = chroma.scale(colors).domain([this.options.min, this.options.max]).colors(this.options.colorStep);
-      var gradientColors = chromaScale.map((color, index) => ({
-        value: this.options.min + (this.options.max - this.options.min) / this.options.colorStep * index - 1,
-        color: color
-      }));
+      var colors = this.options.colors; // var chromaScale = chroma.scale(colors).domain([this.options.min, this.options.max]).colors(this.options.colorStep);
+      // var gradientColors = chromaScale.map((color, index)=>({
+      //   value : this.options.min + (this.options.max - this.options.min) / this.options.colorStep * index-1,
+      //   color: color
+      // }))
+
+      var gradientColors = [{
+        value: 0.00,
+        color: '#B2FCFF'
+      }, {
+        value: 0.10,
+        color: '#2AD8FE'
+      }, {
+        value: 0.20,
+        color: '#4AB8FE'
+      }, {
+        value: 0.30,
+        color: '#91D587'
+      }, {
+        value: 0.40,
+        color: '#E2F700'
+      }, {
+        value: 0.50,
+        color: '#E6D400'
+      }, {
+        value: 0.60,
+        color: '#EAB500'
+      }, {
+        value: 1.00,
+        color: '#EE9000'
+      }, {
+        value: 1.30,
+        color: '#F26F00'
+      }, {
+        value: 1.60,
+        color: '#F64A00'
+      }, {
+        value: 1.80,
+        color: '#FB2500'
+      }, {
+        value: 2.00,
+        color: '#FF0000'
+      } // { value: 0.00, color: '#8000f1' },
+      // { value: 0.20, color: '#800080' },
+      // { value: 0.40, color: '#c71585' },
+      // { value: 0.60, color: '#ff00f1' },
+      // { value: 0.80, color: '#00adf5' },
+      // { value: 1.00, color: '#00ddf3' },
+      // { value: 1.20, color: '#00ff10' },
+      // { value: 1.40, color: '#80ff10' },
+      // { value: 1.60, color: '#ffff00' },
+      // { value: 1.80, color: '#ff8800' },
+      // { value: 2.00, color: '#ff0000' },
+      ];
       var arrowSize = this.options.arrowSize;
       var gridPxelSize = (args.rasterPixelBounds.max.x - args.rasterPixelBounds.min.x) / raster.width;
       var stride = Math.max(1, Math.floor(1.2 * arrowSize / gridPxelSize));
