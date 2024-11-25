@@ -7,7 +7,7 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     colors: ['red', 'yellow', 'green', 'blue', 'purple'],
     displayMin: 0,
     displayMax: 2,
-    colorStep: 12,
+    colorStep: 20,
   },
 
   initialize: function(options) {
@@ -23,32 +23,35 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
   render: function(raster, canvas, ctx, args) {
 
     var gradientScale = chroma.scale(this.options.colors).domain([this.options.displayMin, this.options.displayMax]).colors(this.options.colorStep);
-
-    var gradientColors = [
-      { value: 0.00, color: '#B2FCFF' },
-      { value: 0.10, color: '#2AD8FE' },
-      { value: 0.20, color: '#4AB8FE' },
-      { value: 0.30, color: '#91D587' },
-      { value: 0.40, color: '#E2F700' },
-      { value: 0.50, color: '#E6D400' },
-      { value: 0.60, color: '#EAB500' },
-      { value: 1.00, color: '#EE9000' },
-      { value: 1.30, color: '#F26F00' },
-      { value: 1.60, color: '#F64A00' },
-      { value: 1.80, color: '#FB2500' },
-      { value: 2.00, color: '#FF0000' },
-      // { value: 0.00, color: '#8000f1' },
-      // { value: 0.20, color: '#800080' },
-      // { value: 0.40, color: '#c71585' },
-      // { value: 0.60, color: '#ff00f1' },
-      // { value: 0.80, color: '#00adf5' },
-      // { value: 1.00, color: '#00ddf3' },
-      // { value: 1.20, color: '#00ff10' },
-      // { value: 1.40, color: '#80ff10' },
-      // { value: 1.60, color: '#ffff00' },
-      // { value: 1.80, color: '#ff8800' },
-      // { value: 2.00, color: '#ff0000' },
-    ];
+    var gradientColors = gradientScale.map((color, index) => ({
+      value: this.options.displayMin + (this.options.displayMax - this.options.displayMin) / (this.options.colorStep - 1) * index,
+      color: color,
+    }));
+    // var gradientColors = [
+    //   { value: 0.00, color: '#B2FCFF' },
+    //   { value: 0.10, color: '#2AD8FE' },
+    //   { value: 0.20, color: '#4AB8FE' },
+    //   { value: 0.30, color: '#91D587' },
+    //   { value: 0.40, color: '#E2F700' },
+    //   { value: 0.50, color: '#E6D400' },
+    //   { value: 0.60, color: '#EAB500' },
+    //   { value: 1.00, color: '#EE9000' },
+    //   { value: 1.30, color: '#F26F00' },
+    //   { value: 1.60, color: '#F64A00' },
+    //   { value: 1.80, color: '#FB2500' },
+    //   { value: 2.00, color: '#FF0000' },
+    //   // { value: 0.00, color: '#8000f1' },
+    //   // { value: 0.20, color: '#800080' },
+    //   // { value: 0.40, color: '#c71585' },
+    //   // { value: 0.60, color: '#ff00f1' },
+    //   // { value: 0.80, color: '#00adf5' },
+    //   // { value: 1.00, color: '#00ddf3' },
+    //   // { value: 1.20, color: '#00ff10' },
+    //   // { value: 1.40, color: '#80ff10' },
+    //   // { value: 1.60, color: '#ffff00' },
+    //   // { value: 1.80, color: '#ff8800' },
+    //   // { value: 2.00, color: '#ff0000' },
+    // ];
 
     var arrowSize = this.options.arrowSize;
     var gridPxelSize =
