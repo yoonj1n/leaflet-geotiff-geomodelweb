@@ -291,8 +291,9 @@
         var y = this.raster.height - Math.ceil(this.raster.height * (lat - this._rasterBounds._southWest.lat) / (this._rasterBounds._northEast.lat - this._rasterBounds._southWest.lat)); // invalid indices
 
         if (x < 0 || x > this.raster.width || y < 0 || y > this.raster.height) return null;
-        const i = y * this.raster.width + x;
-        const value = this.raster.data[0][i];
+        const i = y * this.raster.width + x; // const value = this.raster.data[0][i];
+
+        const value = this.raster.data[1][i];
         if (this.options.noDataValue === undefined) return value;
         const noData = parseInt(this.options.noDataValue);
         if (value !== noData) return value;
