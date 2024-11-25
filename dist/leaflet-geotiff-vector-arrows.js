@@ -108,7 +108,7 @@
 
             ctx.save();
             ctx.translate(xProjected, yProjected);
-            ctx.rotate((90 + raster.data[0][rasterIndex]) * Math.PI / 180);
+            ctx.rotate((90 + raster.data[1][rasterIndex]) * Math.PI / 180);
             ctx.beginPath();
             ctx.moveTo(-arrowSize / 2, 0);
             ctx.lineTo(+arrowSize / 2, 0);
