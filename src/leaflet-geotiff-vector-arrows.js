@@ -9,7 +9,7 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     displayMax: 2,
     colorStep: 20,
     fixedZoomLevel: 8,
-    maxZoomArrowSize: 20,
+    fixedArrowStride: 1,
   },
 
   initialize: function(options) {
@@ -30,11 +30,15 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
       color: color,
     }));
 
-    var arrowSize = currentZoom <= this.options.fixedZoomLevel?this.options.arrowSize:this.options.maxZoomArrowSize;
-    var gridPxelSize =
+    // var arrowSize = currentZoom <= this.options.fixedZoomLevel?this.options.arrowSize:this.options.maxZoomArrowSize;
+    var arrowSize = this.options.fixedZoomLevel
+    var gridPixelSize =
       (args.rasterPixelBounds.max.x - args.rasterPixelBounds.min.x) /
       raster.width;
-    var stride = Math.max(1, Math.floor((1.2 * arrowSize) / gridPxelSize));
+      const stride =
+      currentZoom >= this.options.fixedZoomLevel
+        ? this.options.fixedArrowStride
+        : Math.max(1, Math.floor((1.2 * this.options.arrowSize) / gridPixelSize));
 
     for (var y = 0; y < raster.height; y = y + stride) {
       for (var x = 0; x < raster.width; x = x + stride) {
