@@ -1,4 +1,3 @@
-import chroma from 'chroma-js';
 
 L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
   options: {
@@ -18,12 +17,7 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
   },
 
   render: function(raster, canvas, ctx, args) {
-    var colors = this.options.colors;
-    // var chromaScale = chroma.scale(colors).domain([this.options.min, this.options.max]).colors(this.options.colorStep);
-    // var gradientColors = chromaScale.map((color, index)=>({
-    //   value : this.options.min + (this.options.max - this.options.min) / this.options.colorStep * index-1,
-    //   color: color
-    // }))
+
     var gradientColors = [
       { value: 0.00, color: '#B2FCFF' },
       { value: 0.10, color: '#2AD8FE' },
