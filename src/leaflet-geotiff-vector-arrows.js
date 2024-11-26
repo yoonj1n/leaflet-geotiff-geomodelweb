@@ -31,14 +31,19 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     }));
 
     // var arrowSize = currentZoom <= this.options.fixedZoomLevel?this.options.arrowSize:this.options.maxZoomArrowSize;
-    var arrowSize = this.options.fixedZoomLevel
+    // var arrowSize = this.options.fixedZoomLevel
     var gridPixelSize =
       (args.rasterPixelBounds.max.x - args.rasterPixelBounds.min.x) /
       raster.width;
-      const stride =
-      currentZoom >= this.options.fixedZoomLevel
-        ? this.options.fixedArrowStride
-        : Math.max(1, Math.floor((1.2 * this.options.arrowSize) / gridPixelSize));
+      // const stride =
+      // currentZoom >= this.options.fixedZoomLevel
+      //   ? this.options.fixedArrowStride
+      //   : Math.max(1, Math.floor((1.2 * this.options.arrowSize) / gridPixelSize));
+
+
+    // 줌 레벨에 따른 arrowSize 및 stride 설정
+    var arrowSize = this.options.arrowSize * (currentZoom / this.options.fixedZoomLevel);
+    var stride = Math.max(1, Math.floor((1.5 * arrowSize) / args.lngSpan)); // 줌 레벨에 따라 stride 조정
 
     for (var y = 0; y < raster.height; y = y + stride) {
       for (var x = 0; x < raster.width; x = x + stride) {
