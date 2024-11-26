@@ -89,11 +89,11 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
             ctx.moveTo(-arrowSize / 2, 0);
             ctx.lineTo(+arrowSize / 2, 0);
           } else {
-            ctx.moveTo(-arrowSize / 1.2, 0);
-            ctx.lineTo(+arrowSize / 1.2, 0);
+            ctx.moveTo(-arrowSize, 0);
+            ctx.lineTo(+arrowSize, 0);
           }
           ctx.moveTo(arrowSize * 0.25, -arrowSize * 0.25);
-          currentZoom <= 8? ctx.lineTo(+arrowSize / 2, 0) : ctx.lineTo(+arrowSize / 1.2, 0);
+          currentZoom <= 8? ctx.lineTo(+arrowSize / 2, 0) : ctx.lineTo(+arrowSize, 0);
           ctx.lineTo(arrowSize * 0.25, arrowSize * 0.25);
           ctx.strokeStyle = color;
           ctx.stroke();
