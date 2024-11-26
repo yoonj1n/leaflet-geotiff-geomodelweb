@@ -82,8 +82,13 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
           ctx.translate(xProjected, yProjected);
           ctx.rotate(((90 + raster.data[1][rasterIndex]) * Math.PI) / 180);
           ctx.beginPath();
-          ctx.moveTo(-arrowSize / 2, 0);
-          ctx.lineTo(+arrowSize / 2, 0);
+          if (currentZoom <= 8) {
+            ctx.moveTo(-arrowSize / 2, 0);
+            ctx.lineTo(+arrowSize / 2, 0);
+          } else {
+            ctx.moveTo(-arrowSize / 1.2, 0);
+            ctx.lineTo(+arrowSize / 1.2, 0);
+          }
           ctx.moveTo(arrowSize * 0.25, -arrowSize * 0.25);
           ctx.lineTo(+arrowSize / 2, 0);
           ctx.lineTo(arrowSize * 0.25, arrowSize * 0.25);
