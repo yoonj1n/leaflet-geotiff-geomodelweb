@@ -6,6 +6,7 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     arrowSize: 20,
     colors: ['red', 'yellow', 'green', 'blue', 'purple'],
     displayMin: 0,
+    displayMid: 1,
     displayMax: 2,
     colorStep: 20,
   },

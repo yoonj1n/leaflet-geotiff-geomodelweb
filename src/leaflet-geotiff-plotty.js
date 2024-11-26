@@ -10,6 +10,7 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
     clampLow: true,
     clampHigh: true,
     displayMin: 0,
+    displayMid: 0.5,
     displayMax: 1,
     noDataValue: -9999,
     useWebGL: false
