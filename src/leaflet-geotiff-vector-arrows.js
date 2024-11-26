@@ -22,6 +22,7 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
 
   render: function(raster, canvas, ctx, args) {
     var currentZoom = this.parent._map.getZoom();
+    console.log(currentZoom);
     var gradientScale = chroma.scale(this.options.colors).domain([this.options.displayMin, this.options.displayMax]).colors(this.options.colorStep);
     var gradientColors = gradientScale.map((color, index) => ({
       value: this.options.displayMin + (this.options.displayMax - this.options.displayMin) / (this.options.colorStep - 1) * index,
