@@ -6,9 +6,9 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     arrowSize: 20,
     colors: ['red', 'yellow', 'green', 'blue', 'purple'],
     displayMin: 0,
-    displayMid: 1,
     displayMax: 2,
-    colorStep: 20,
+    dataRange: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2],
+    colorStep: 11,
   },
 
   initialize: function(options) {
@@ -28,7 +28,7 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     // document.body.appendChild(debugElement);
     var gradientScale = chroma.scale(this.options.colors).domain([this.options.displayMin, this.options.displayMax]).colors(this.options.colorStep);
     var gradientColors = gradientScale.map((color, index) => ({
-      value: this.options.displayMin + (this.options.displayMax - this.options.displayMin) / (this.options.colorStep - 1) * index,
+      value: this.options.dataRange[index],
       color: color,
     }));
 

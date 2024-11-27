@@ -10,8 +10,8 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
     clampLow: true,
     clampHigh: true,
     displayMin: 0,
-    displayMid: 0.5,
     displayMax: 1,
+    dataRange: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
     noDataValue: -9999,
     useWebGL: false
   },
@@ -72,7 +72,7 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       data: [0],
       width: 1,
       height: 1,
-      domain: [this.options.displayMin, this.options.displayMax],
+      domain: this.options.dataRange,
       colorScale: this.options.colorScale,
       clampLow: this.options.clampLow,
       clampHigh: this.options.clampHigh,
@@ -102,7 +102,7 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       data: raster.data[0], // fix for use with rgb conversion (appending alpha channel)
       width: raster.width,
       height: raster.height,
-      domain: [this.options.displayMin, this.options.displayMax],
+      domain: this.options.dataRange,
       displayRange: [this.options.displayMin, this.options.displayMax],
       applyDisplayRange: this.options.applyDisplayRange,
       colorScale: this.options.colorScale,
