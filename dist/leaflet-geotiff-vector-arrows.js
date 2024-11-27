@@ -12,7 +12,8 @@
       colors: ['red', 'yellow', 'green', 'blue', 'purple'],
       displayMin: 0,
       displayMax: 2,
-      colorStep: 20
+      dataRange: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2],
+      colorStep: 11
     },
     initialize: function (options) {
       this.name = "Vector";
@@ -23,40 +24,20 @@
       this.parent._reset();
     },
     render: function (raster, canvas, ctx, args) {
+      var currentZoom = this.parent._map.getZoom();
+      // var debugElement = document.createElement("div");
+      // debugElement.innerText = "Current Zoom Level: " + currentZoom;
+      // document.body.appendChild(debugElement);
       var gradientScale = chroma.scale(this.options.colors).domain([this.options.displayMin, this.options.displayMax]).colors(this.options.colorStep);
       var gradientColors = gradientScale.map((color, index) => ({
-        value: this.options.displayMin + (this.options.displayMax - this.options.displayMin) / (this.options.colorStep - 1) * index,
+        value: this.options.dataRange[index],
         color: color
       }));
-      // var gradientColors = [
-      //   { value: 0.00, color: '#B2FCFF' },
-      //   { value: 0.10, color: '#2AD8FE' },
-      //   { value: 0.20, color: '#4AB8FE' },
-      //   { value: 0.30, color: '#91D587' },
-      //   { value: 0.40, color: '#E2F700' },
-      //   { value: 0.50, color: '#E6D400' },
-      //   { value: 0.60, color: '#EAB500' },
-      //   { value: 1.00, color: '#EE9000' },
-      //   { value: 1.30, color: '#F26F00' },
-      //   { value: 1.60, color: '#F64A00' },
-      //   { value: 1.80, color: '#FB2500' },
-      //   { value: 2.00, color: '#FF0000' },
-      //   // { value: 0.00, color: '#8000f1' },
-      //   // { value: 0.20, color: '#800080' },
-      //   // { value: 0.40, color: '#c71585' },
-      //   // { value: 0.60, color: '#ff00f1' },
-      //   // { value: 0.80, color: '#00adf5' },
-      //   // { value: 1.00, color: '#00ddf3' },
-      //   // { value: 1.20, color: '#00ff10' },
-      //   // { value: 1.40, color: '#80ff10' },
-      //   // { value: 1.60, color: '#ffff00' },
-      //   // { value: 1.80, color: '#ff8800' },
-      //   // { value: 2.00, color: '#ff0000' },
-      // ];
 
+      // var arrowSize = currentZoom <= this.options.fixedZoomLevel?this.options.arrowSize:this.options.maxZoomArrowSize;
       var arrowSize = this.options.arrowSize;
-      var gridPxelSize = (args.rasterPixelBounds.max.x - args.rasterPixelBounds.min.x) / raster.width;
-      var stride = Math.max(1, Math.floor(1.2 * arrowSize / gridPxelSize));
+      var gridPixelSize = (args.rasterPixelBounds.max.x - args.rasterPixelBounds.min.x) / raster.width;
+      const stride = Math.max(1, Math.floor(1.2 * this.options.arrowSize / gridPixelSize));
       for (var y = 0; y < raster.height; y = y + stride) {
         for (var x = 0; x < raster.width; x = x + stride) {
           var rasterIndex = y * raster.width + x;
@@ -97,10 +78,15 @@
             ctx.translate(xProjected, yProjected);
             ctx.rotate((90 + raster.data[1][rasterIndex]) * Math.PI / 180);
             ctx.beginPath();
-            ctx.moveTo(-arrowSize / 2, 0);
-            ctx.lineTo(+arrowSize / 2, 0);
+            if (currentZoom <= 8) {
+              ctx.moveTo(-arrowSize / 2, 0);
+              ctx.lineTo(+arrowSize / 2, 0);
+            } else {
+              ctx.moveTo(-arrowSize, 0);
+              ctx.lineTo(+arrowSize, 0);
+            }
             ctx.moveTo(arrowSize * 0.25, -arrowSize * 0.25);
-            ctx.lineTo(+arrowSize / 2, 0);
+            currentZoom <= 8 ? ctx.lineTo(+arrowSize / 2, 0) : ctx.lineTo(+arrowSize, 0);
             ctx.lineTo(arrowSize * 0.25, arrowSize * 0.25);
             ctx.strokeStyle = color;
             ctx.stroke();
