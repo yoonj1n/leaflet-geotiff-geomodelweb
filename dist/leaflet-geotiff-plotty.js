@@ -77,7 +77,7 @@
       this.colorScaleData = plot.colorScaleCanvas.toDataURL();
     },
     render: function render(raster, canvas, ctx, args) {
-      // plotty.addColorScale("RasterColorScale",["#4260f5","#429bf5","#42ddf5","#42f5d7","#42f5a4","#4ef542","#93f542","#d7f542","#f5d742","#f59c42","#f54242"],[0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]);
+      plotty.addColorScale("RasterColorScale", this.options.colors, [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]);
       var plottyCanvas = document.createElement("canvas");
       var matrixTransform = [1, 0, 0, 0, 1, 0, 0, 0, 1];
       if (this.options.useWebGL) {
