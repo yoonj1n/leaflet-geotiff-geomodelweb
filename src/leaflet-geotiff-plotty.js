@@ -87,10 +87,12 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
 
     var NomDataRange = normalisedDataRange(this.options.displayMin, this.options.displayMax, this.options.dataRange);
 
-    plotty.addColorScale("Custom",this.options.colors,NomDataRange);
+    if(this.options.colorScale === 'Custom') plotty.addColorScale("Custom",this.options.colors,NomDataRange);
   },
 
   render: function(raster, canvas, ctx, args) {
+    
+
     var plottyCanvas = document.createElement("canvas");
     
     let matrixTransform = [
