@@ -73,7 +73,7 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       width: 1,
       height: 1,
       domain: [this.options.displayMin, this.options.displayMax],
-      colorScale: this.options.colorScale === 'RasterColorScale' ? 'turbo' : this.options.colorScale,
+      colorScale: this.options.colorScale === 'Custom' ? 'turbo' : this.options.colorScale,
       clampLow: this.options.clampLow,
       clampHigh: this.options.clampHigh,
       useWebGL: this.options.useWebGL
@@ -87,12 +87,10 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
 
     var NomDataRange = normalisedDataRange(this.options.displayMin, this.options.displayMax, this.options.dataRange);
 
-    plotty.addColorScale("RasterColorScale",this.options.colors,NomDataRange);
+    plotty.addColorScale("Custom",this.options.colors,NomDataRange);
   },
 
   render: function(raster, canvas, ctx, args) {
-    
-
     var plottyCanvas = document.createElement("canvas");
     
     let matrixTransform = [
