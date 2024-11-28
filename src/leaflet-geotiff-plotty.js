@@ -73,7 +73,7 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       width: 1,
       height: 1,
       domain: [this.options.displayMin, this.options.displayMax],
-      colorScale: this.options.colorScale,
+      colorScale: this.options.colorScale === 'RasterColorScale' ? 'turbo' : this.options.colorScale,
       clampLow: this.options.clampLow,
       clampHigh: this.options.clampHigh,
       useWebGL: this.options.useWebGL
