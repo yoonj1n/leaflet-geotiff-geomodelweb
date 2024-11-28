@@ -75,8 +75,6 @@
         useWebGL: this.options.useWebGL
       });
       this.colorScaleData = plot.colorScaleCanvas.toDataURL();
-    },
-    render: function render(raster, canvas, ctx, args) {
       function normalisedDataRange(min, max, datarange) {
         return datarange.map(function (value) {
           return (value - min) / (max - min);
@@ -84,6 +82,8 @@
       }
       var NomDataRange = normalisedDataRange(this.options.displayMin, this.options.displayMax, this.options.dataRange);
       plotty.addColorScale("RasterColorScale", this.options.colors, NomDataRange);
+    },
+    render: function render(raster, canvas, ctx, args) {
       var plottyCanvas = document.createElement("canvas");
       var matrixTransform = [1, 0, 0, 0, 1, 0, 0, 0, 1];
       if (this.options.useWebGL) {
@@ -98,7 +98,6 @@
         displayRange: [this.options.displayMin, this.options.displayMax],
         applyDisplayRange: this.options.applyDisplayRange,
         colorScale: this.options.colorScale,
-        // colorScale: 'RasterColorScale',
         clampLow: this.options.clampLow,
         clampHigh: this.options.clampHigh,
         canvas: plottyCanvas,

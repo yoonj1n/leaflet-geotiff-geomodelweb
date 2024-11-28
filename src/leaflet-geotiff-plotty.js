@@ -79,9 +79,6 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       useWebGL: this.options.useWebGL
     });
     this.colorScaleData = plot.colorScaleCanvas.toDataURL();
-  },
-
-  render: function(raster, canvas, ctx, args) {
     function normalisedDataRange(min, max, datarange){
       return datarange.map((value)=>{
         return (value-min)/(max-min);
@@ -91,6 +88,10 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
     var NomDataRange = normalisedDataRange(this.options.displayMin, this.options.displayMax, this.options.dataRange);
 
     plotty.addColorScale("RasterColorScale",this.options.colors,NomDataRange);
+  },
+
+  render: function(raster, canvas, ctx, args) {
+    
 
     var plottyCanvas = document.createElement("canvas");
     
@@ -116,7 +117,6 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       displayRange: [this.options.displayMin, this.options.displayMax],
       applyDisplayRange: this.options.applyDisplayRange,
       colorScale: this.options.colorScale,
-      // colorScale: 'RasterColorScale',
       clampLow: this.options.clampLow,
       clampHigh: this.options.clampHigh,
       canvas: plottyCanvas,
