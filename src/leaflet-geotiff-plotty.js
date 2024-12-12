@@ -67,13 +67,14 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
 
   _preLoadColorScale: function() {
     var canvas = document.createElement("canvas");
+
     var plot = new plotty.plot({
       canvas: canvas,
       data: [0],
       width: 1,
       height: 1,
       domain: [this.options.displayMin, this.options.displayMax],
-      colorScale: this.options.colorScale === 'Custom' ? 'turbo' : this.options.colorScale,
+      colorScale: 'turbo',
       clampLow: this.options.clampLow,
       clampHigh: this.options.clampHigh,
       useWebGL: this.options.useWebGL
@@ -84,10 +85,14 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
         return (value-min)/(max-min);
       })
     }
-
-    // var NomDataRange = normalisedDataRange(this.options.displayMin, this.options.displayMax, this.options.dataRange);
-
-    if(this.options.colorScale === 'Custom') plotty.addColorScale("Custom",this.options.colors, this.options.dataRange);
+    
+    if(this.getColorbarOptions().indexOf(this.options.colorScale) === -1) {
+      if(this.options.colors.length === this.options.dataRange.length) {
+      plotty.addColorScale(this.options.colorScale, this.options.colors, this.options.dataRange);
+      } else {
+        console.error('Color scale not found and colors and dataRange not provided');
+      }
+    }
   },
 
   render: function(raster, canvas, ctx, args) {
