@@ -75,13 +75,10 @@
         useWebGL: this.options.useWebGL
       });
       this.colorScaleData = plot.colorScaleCanvas.toDataURL();
-      function normalisedDataRange(min, max, datarange) {
-        return datarange.map(function (value) {
-          return (value - min) / (max - min);
-        });
-      }
-      var NomDataRange = normalisedDataRange(this.options.displayMin, this.options.displayMax, this.options.dataRange);
-      if (this.options.colorScale === 'Custom') plotty.addColorScale("Custom", this.options.colors, NomDataRange);
+
+      // var NomDataRange = normalisedDataRange(this.options.displayMin, this.options.displayMax, this.options.dataRange);
+
+      if (this.options.colorScale === 'Custom') plotty.addColorScale("Custom", this.options.colors, this.options.dataRange);
     },
     render: function render(raster, canvas, ctx, args) {
       var plottyCanvas = document.createElement("canvas");

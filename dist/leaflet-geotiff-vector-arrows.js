@@ -9,7 +9,7 @@
   L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     options: {
       arrowSize: 20,
-      colors: ['red', 'yellow', 'green', 'blue', 'purple'],
+      colors: ['white', 'white'],
       displayMin: 0,
       displayMax: 2,
       dataRange: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2],
