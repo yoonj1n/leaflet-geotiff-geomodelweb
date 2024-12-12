@@ -85,9 +85,9 @@ L.LeafletGeotiff.Plotty = L.LeafletGeotiffRenderer.extend({
       })
     }
 
-    var NomDataRange = normalisedDataRange(this.options.displayMin, this.options.displayMax, this.options.dataRange);
+    // var NomDataRange = normalisedDataRange(this.options.displayMin, this.options.displayMax, this.options.dataRange);
 
-    if(this.options.colorScale === 'Custom') plotty.addColorScale("Custom",this.options.colors,NomDataRange);
+    if(this.options.colorScale === 'Custom') plotty.addColorScale("Custom",this.options.colors, this.options.dataRange);
   },
 
   render: function(raster, canvas, ctx, args) {
