@@ -249,7 +249,7 @@ L.LeafletGeotiff = L.ImageOverlay.extend({
       console.error("this.tiff.getImage threw error", e);
     });
     const data = await image
-      .readRasters({ samples: this.options.samples || [band] })
+      .readRasters({ samples: this.options.samples})
       .catch((e) => {
         console.error("image.readRasters threw error", e);
       });

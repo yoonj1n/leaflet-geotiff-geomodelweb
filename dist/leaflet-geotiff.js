@@ -204,7 +204,7 @@
         console.error("this.tiff.getImage threw error", e);
       });
       const data = await image.readRasters({
-        samples: this.options.samples || [band]
+        samples: this.options.samples
       }).catch(e => {
         console.error("image.readRasters threw error", e);
       });
