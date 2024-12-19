@@ -13,7 +13,8 @@
       displayMin: 0,
       displayMax: 2,
       dataRange: [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2],
-      colorStep: 11
+      colorStep: 11,
+      noDataValue: 361
     },
     initialize: function (options) {
       this.name = "Vector";
@@ -24,24 +25,18 @@
       this.parent._reset();
     },
     render: function (raster, canvas, ctx, args) {
-      var currentZoom = this.parent._map.getZoom();
-      // var debugElement = document.createElement("div");
-      // debugElement.innerText = "Current Zoom Level: " + currentZoom;
-      // document.body.appendChild(debugElement);
       var gradientScale = this.options.dataRange.length === this.options.colors.length ? this.options.colors : chroma.scale(this.options.colors).domain([this.options.displayMin, this.options.displayMax]).colors(this.options.colorStep);
       var gradientColors = gradientScale.map((color, index) => ({
         value: this.options.dataRange[index],
         color: color
       }));
-
-      // var arrowSize = currentZoom <= this.options.fixedZoomLevel?this.options.arrowSize:this.options.maxZoomArrowSize;
       var arrowSize = this.options.arrowSize;
       var gridPixelSize = (args.rasterPixelBounds.max.x - args.rasterPixelBounds.min.x) / raster.width;
       const stride = Math.max(1, Math.floor(1.2 * this.options.arrowSize / gridPixelSize));
       for (var y = 0; y < raster.height; y = y + stride) {
         for (var x = 0; x < raster.width; x = x + stride) {
           var rasterIndex = y * raster.width + x;
-          if (raster.data[1][rasterIndex] >= 0) {
+          if (raster.data[1][rasterIndex] >= 0 && raster[1][rasterIndex] < this.options.noDataValue) {
             //Ignore missing values
             //calculate lat-lon of of this point
             var currentLng = this.parent._rasterBounds._southWest.lng + (x + 0.5) * args.lngSpan;
