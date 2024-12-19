@@ -257,7 +257,8 @@
         } : {
           data0: this.raster.data[0][i]
         };
-        if (this.options.noDataValue === undefined) return value;
+        return value;
+        // if (this.options.noDataValue === undefined) return value;
         // const noData = parseInt(this.options.noDataValue);
         // if (value !== noData) return value;
         // return null;
