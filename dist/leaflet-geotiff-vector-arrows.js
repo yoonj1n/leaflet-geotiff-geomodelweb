@@ -25,6 +25,7 @@
       this.parent._reset();
     },
     render: function (raster, canvas, ctx, args) {
+      var currentZoom = this.parent._map.getZoom();
       var gradientScale = this.options.dataRange.length === this.options.colors.length ? this.options.colors : chroma.scale(this.options.colors).domain([this.options.displayMin, this.options.displayMax]).colors(this.options.colorStep);
       var gradientColors = gradientScale.map((color, index) => ({
         value: this.options.dataRange[index],
@@ -36,7 +37,7 @@
       for (var y = 0; y < raster.height; y = y + stride) {
         for (var x = 0; x < raster.width; x = x + stride) {
           var rasterIndex = y * raster.width + x;
-          if (raster.data[1][rasterIndex] >= 0 && raster[1][rasterIndex] < this.options.noDataValue) {
+          if (raster.data[1][rasterIndex] >= 0) {
             //Ignore missing values
             //calculate lat-lon of of this point
             var currentLng = this.parent._rasterBounds._southWest.lng + (x + 0.5) * args.lngSpan;
