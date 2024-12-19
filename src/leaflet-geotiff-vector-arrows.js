@@ -39,7 +39,7 @@ L.LeafletGeotiff.VectorArrows = L.LeafletGeotiffRenderer.extend({
     for (var y = 0; y < raster.height; y = y + stride) {
       for (var x = 0; x < raster.width; x = x + stride) {
         var rasterIndex = y * raster.width + x;
-        if (raster.data[1][rasterIndex] >= 0 && raster[1][rasterIndex] < this.options.noDataValue) {
+        if (raster.data[1][rasterIndex] >= 0) {
           //Ignore missing values
           //calculate lat-lon of of this point
           var currentLng =
